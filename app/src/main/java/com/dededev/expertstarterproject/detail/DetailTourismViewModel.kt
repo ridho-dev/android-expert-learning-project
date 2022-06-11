@@ -1,10 +1,10 @@
 package com.dededev.expertstarterproject.detail
 
 import androidx.lifecycle.ViewModel
-import com.dededev.expertstarterproject.core.data.TourismRepository
-import com.dededev.expertstarterproject.core.data.source.local.entity.TourismEntity
+import com.dededev.expertstarterproject.core.domain.model.Tourism
+import com.dededev.expertstarterproject.core.domain.usecase.TourismUseCase
 
-class DetailTourismViewModel(private val tourismRepository: TourismRepository) : ViewModel() {
-    fun setFavoriteTourism(tourism: TourismEntity, newStatus:Boolean) = tourismRepository.setFavoriteTourism(tourism, newStatus)
+class DetailTourismViewModel(private val tourismUseCase: TourismUseCase) : ViewModel() {
+    fun setFavoriteTourism(tourism: Tourism, newStatus:Boolean) = tourismUseCase.setFavoriteTourism(tourism, newStatus)
 }
 

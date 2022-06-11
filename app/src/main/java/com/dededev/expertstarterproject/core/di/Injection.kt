@@ -7,11 +7,14 @@ import com.dededev.expertstarterproject.core.data.source.local.room.TourismDatab
 
 import com.dededev.expertstarterproject.core.data.TourismRepository
 import com.dededev.expertstarterproject.core.data.source.remote.RemoteDataSource
+import com.dededev.expertstarterproject.core.domain.repository.ITourismRepository
+import com.dededev.expertstarterproject.core.domain.usecase.TourismInteractor
+import com.dededev.expertstarterproject.core.domain.usecase.TourismUseCase
 import com.dededev.expertstarterproject.core.utils.AppExecutors
 import com.dededev.expertstarterproject.core.utils.JsonHelper
 
 object Injection {
-    fun provideRepository(context: Context): TourismRepository {
+    fun provideRepository(context: Context): ITourismRepository {
         val database = TourismDatabase.getInstance(context)
 
         val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
@@ -19,5 +22,10 @@ object Injection {
         val appExecutors = AppExecutors()
 
         return TourismRepository.getInstance(remoteDataSource, localDataSource, appExecutors)
+    }
+
+    fun provideTourismUseCase(context: Context): TourismUseCase {
+        val repository = provideRepository(context)
+        return TourismInteractor(repository)
     }
 }
